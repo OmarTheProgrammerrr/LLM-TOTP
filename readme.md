@@ -13,9 +13,7 @@ The `LM_TOTP` class provides a novel approach to generating Time-based One-Time 
 ---
 
 ## Installation
-```bash
- 
-```
+
 ### Prerequisites
 Make sure you have the following libraries installed:
 - `transformers`

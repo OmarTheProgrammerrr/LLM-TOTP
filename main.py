@@ -91,15 +91,4 @@ class LM_TOTP:
         return  self.generate_totp(timestamp)
 
 
-##############
 
-#if __name__ == '__main__':
- #   given_key = 'abcd1234'
-
-#  totp = LM_TOTP(given_key , 120)
- #   totp1 = totp.now()
- #   totp2 = totp.at(12345)
- #   print(totp1)
-#    print(totp.validate('123'))
-
-#######################

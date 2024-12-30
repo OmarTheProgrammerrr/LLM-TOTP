@@ -25,7 +25,7 @@ Make sure you have the following libraries installed:
 
 Install required libraries using pip:
 ```bash
-pip install transformers torch pyotp
+pip install -r requirements.txt
 ```
 
 ---

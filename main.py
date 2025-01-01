@@ -42,9 +42,9 @@ class LM_TOTP:
 
 
 
-    def last_256_bits(self , input_string):
+    def last_160_bits(self , input_string):
         byte_data = input_string.encode('utf-8')
-        last_256_bits = byte_data[-32:]
+        last_256_bits = byte_data[-20:]
         base32_encoded = base64.b32encode(last_256_bits).decode('utf-8')
         return base32_encoded
 

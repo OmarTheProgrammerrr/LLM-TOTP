@@ -1,3 +1,4 @@
+from main import LM_TOTP
 ##############
 
 if __name__ == '__main__':

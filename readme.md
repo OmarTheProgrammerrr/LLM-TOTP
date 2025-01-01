@@ -75,8 +75,8 @@ Initializes the LM_TOTP class.
 ### `gpt2_(self, prompt)`
 Generates a response using GPT-2 for a given prompt.
 
-### `last_256_bits(self, input_string)`
-Extracts the last 256 bits of a string and encodes them in Base32.
+### `last_160_bits(self, input_string)`
+Extracts the last 160 bits of a string and encodes them in Base32.
 
 ### `generate_key(self, secret_key, given_timestamp)`
 Generates a new key based on the secret key and timestamp.

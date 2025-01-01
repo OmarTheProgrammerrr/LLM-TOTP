@@ -59,7 +59,7 @@ class LM_TOTP:
         prompt = secret_key + str(TimeStamp)
         t1 = self.gpt2_(prompt)
 
-        new_key = self.last_256_bits(t1)
+        new_key = self.last_160_bits(t1)
         
         return TimeStamp , new_key
 

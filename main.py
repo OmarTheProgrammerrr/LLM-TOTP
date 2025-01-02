@@ -10,6 +10,8 @@ import torch
 
 
 class LM_TOTP:
+
+    ################# constructor ################
     def __init__(self, secret , time_step = 120):
         model_name = 'gpt2'
         self.tokenizer = GPT2Tokenizer.from_pretrained(model_name)
@@ -19,7 +21,9 @@ class LM_TOTP:
         self.secret = secret
         self.time_step = time_step
 
-    def gpt2_(self , prompt):
+    
+    ########### puplic methods ###############
+    def __gpt2(self , prompt):
         input_ids = self.tokenizer.encode(prompt, return_tensors='pt')
 
         attention_mask = torch.ones(input_ids.shape, device=input_ids.device)
@@ -42,14 +46,14 @@ class LM_TOTP:
 
 
 
-    def last_160_bits(self , input_string):
+    def __last_160_bits(self , input_string):
         byte_data = input_string.encode('utf-8')
-        last_256_bits = byte_data[-20:]
-        base32_encoded = base64.b32encode(last_256_bits).decode('utf-8')
+        last_160_bits = byte_data[-20:]
+        base32_encoded = base64.b32encode(last_160_bits).decode('utf-8')
         return base32_encoded
 
 
-    def generate_key(self , secret_key  , given_timestamp):
+    def __generate_key(self , secret_key  , given_timestamp):
 
         if given_timestamp == None:
             TimeStamp = int(time.time())  // self.time_step
@@ -57,15 +61,14 @@ class LM_TOTP:
             TimeStamp = given_timestamp // self.time_step
 
         prompt = secret_key + str(TimeStamp)
-        t1 = self.gpt2_(prompt)
+        response = self.__gpt2(prompt)
 
-        new_key = self.last_160_bits(t1)
+        new_key = self.__last_160_bits(response)
         
         return TimeStamp , new_key
-
-
-    def generate_totp(self , timestamp = None):
-        response = self.generate_key(self.secret  , timestamp)
+        
+    def __generate_totp(self , timestamp = None):
+        response = self.__generate_key(self.secret  , timestamp)
 
         time_stamp = response[0]
         new_secret = response[1]
@@ -75,7 +78,8 @@ class LM_TOTP:
 
         return otp
 
-
+########### puplic methods ###############
+    
     def validate(self , given_totp ):
         totp = self.now()
         if given_totp == totp:
@@ -84,11 +88,11 @@ class LM_TOTP:
             return False
         
     def now(self):
-        return self.generate_totp()
+        return self.__generate_totp()
 
 
     def at(self , timestamp):
-        return  self.generate_totp(timestamp)
+        return  self.__generate_totp(timestamp)
 
 
 
